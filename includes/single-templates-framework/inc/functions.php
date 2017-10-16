@@ -238,10 +238,11 @@ function dslc_get_template_by_id( $post_id ) {
 function dslc_get_archive_template_by_pt( $post_type_slug ) {
 
 	// WooCommerce ( Woo Shop ) - https://github.com/lumbermandesigns/lc-woo-integration/issues/68.
-	if ( 'product' == $post_type_slug ) {
-
-		$template_id = apply_filters( 'dslc_post_type_slug', $post_type_slug );
-		return $template_id;
+	if ( class_exists( 'WooCommerce' ) ) {
+		if ( is_shop() ) {
+			$template_id = apply_filters( 'dslc_post_type_slug', $post_type_slug );
+			return $template_id;
+		}
 	}
 
 	// All the archive templates saved in DB with '_archive' suffix.
